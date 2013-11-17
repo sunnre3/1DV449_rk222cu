@@ -1,0 +1,38 @@
+@charset "utf-8";
+
+body
+{
+	background: #333;
+	color: #fff;
+}
+
+div#wrapper
+{
+	width: 600px;
+	margin: 50px auto;
+	padding: 25px;
+}
+
+div.producer
+{
+	background: #fff;
+	color: #333;
+	margin-bottom: 10px;
+	margin-right: 10px;
+	padding: 10px 25px;
+	border-radius: 6px;
+	float: left;
+}
+
+div.producer div.name
+{
+	font-weight: bold;
+	font-size: 18px;
+	line-height: 18px;
+}
+
+div.producer div.url
+{
+	font-size: 14px;
+	line-height: 14px;
+}
