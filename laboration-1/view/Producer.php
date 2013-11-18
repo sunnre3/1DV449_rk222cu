@@ -15,24 +15,36 @@ class Producer {
 		$html = '
 			<div id="producers">';
 
-		foreach($producers as $producer) {
-			$url = (empty($producer->url) || $producer->url == '#') ? 'Hemsida saknas' : '<a href="' . $producer->url . '">' . $producer->url . '</a>';
+		if(empty($producers)) {
+			$html .= utf8_encode('
+			<div class="producer empty">
+				<p>Inga producenter hittades i vår databas.</p>
+			</div>
+			');
+		}
 
-			$html .= '
+		else {
 
-				<div id="producer-' . $producer->id . '" class="producer">
-					<div class="name">
-						' . $producer->name . '
-					</div>
+			foreach($producers as $producer) {
+				$url = (empty($producer->url) || $producer->url == '#') ? 'Hemsida saknas' : '<a href="' . $producer->url . '">' . $producer->url . '</a>';
 
-					<div class="city">
-						' . utf8_encode($producer->city) . '
-					</div>
+				$html .= '
 
-					<div class="url">
-						' . $url . '
-					</div>
-				</div>';
+					<div id="producer-' . $producer->id . '" class="producer">
+						<div class="name">
+							' . $producer->name . '
+						</div>
+
+						<div class="city">
+							' . utf8_encode($producer->city) . '
+						</div>
+
+						<div class="url">
+							' . $url . '
+						</div>
+					</div>';
+			}
+
 		}
 
 		$html .= '

@@ -18,6 +18,7 @@ class HTMLPage {
 		<meta charset="utf-8">
 		<link rel="stylesheet" type="text/css" href="stylesheets/reset.css">
 		<link rel="stylesheet" type="text/css" href="stylesheets/basic.css">
+		<link rel="stylesheet" type="text/css" href="stylesheets/fonts.css">
 		<link rel="stylesheet" type="text/css" href="stylesheets/default.css">
 	</head>
 
@@ -27,6 +28,10 @@ class HTMLPage {
 			<header id="main-header">
 				<h1>Närproducenter</h1>
 			</header>
+
+			<div class="update">
+				<a href="?update">Uppdatera</a>	
+			</div>
 
 			' . $content . '
 

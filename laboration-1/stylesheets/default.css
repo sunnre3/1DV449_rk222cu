@@ -4,6 +4,7 @@ body
 {
 	background: #333;
 	color: #fff;
+	font-family: 'Open Sans';
 }
 
 div#wrapper
@@ -11,6 +12,29 @@ div#wrapper
 	width: 600px;
 	margin: 50px auto;
 	padding: 25px;
+}
+
+header#main-header h1
+{
+	text-transform: uppercase;
+	font-size: 38px;
+	line-height: 38px;
+	margin: 0;
+}
+
+div.update
+{
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: 14px;
+	line-height: 14px;
+	letter-spacing: 1px;
+	margin: 1px 0 10px;
+}
+
+div.update a
+{
+	color: #bbb;
 }
 
 div.producer

@@ -3,6 +3,7 @@
 namespace controller;
 
 require_once('./model/Scraper.php');
+require_once('./model/ProducerDAL.php');
 require_once('./view/Producer.php');
 require_once('./view/HTMLPage.php');
 
@@ -15,8 +16,23 @@ class App {
 	 * @return string HTML
 	 */
 	public function run() {
+		//First check if the user wants to
+		//update the data.
+		if(isset($_GET['update'])) {
+			//Scrape the source.
+			$scraper = new \model\Scraper();
+			$producers = $scraper->getProducers();
+
+			//Save them to our database.
+			$producerDAL = new \model\ProducerDAL();
+			$producerDAL->update($producers);
+
+			//Redirect.
+			header('location: ./');
+		}
+
 		//Get the producers.
-		$model = new \model\Scraper();
+		$model = new \model\ProducerDAL();
 		$producers = $model->getProducers();
 
 		//Get the HTML from the
