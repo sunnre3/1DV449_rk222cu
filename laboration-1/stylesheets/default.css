@@ -1,5 +1,18 @@
 @charset "utf-8";
 
+.clearfix:after
+{
+	content: ".";
+	display: block;
+	overflow: hidden;
+	visibility: hidden;
+	font-size: 0;
+	line-height: 0;
+	width: 0;
+	height: 0;
+	clear: both;	
+}
+
 body
 {
 	background: #333;
@@ -59,4 +72,30 @@ div.producer div.url
 {
 	font-size: 14px;
 	line-height: 14px;
+}
+
+div#broken-links
+{
+	margin-top: 5px;
+	padding: 5px;
+	border-top: 1px solid #444;
+	font-size: 12px;
+	line-height: 14px;
+}
+
+div#broken-links p
+{
+	margin: 0;
+}
+
+div#broken-links ol
+{
+	margin-top: 5px;
+	margin-left: 18px;
+	list-style-type: decimal;
+}
+
+div#broken-links .broken-link a
+{
+	color: #aaa;
 }

@@ -2,7 +2,24 @@
 
 namespace view;
 
+require_once('./model/ProducerDAL.php');
+
 class Producer {
+	/**
+	 * The producer DAL is used to fetch all
+	 * the URLs in our database that are broken
+	 * so we can display them to the user.
+	 * @var \model\ProducerDAL
+	 */
+	private $producerDAL;
+
+	/**
+	 * Initiates objects.
+	 */
+	public function __construct() {
+		$this->producerDAL = new \model\ProducerDAL();
+	}
+
 	/**
 	 * Method that takes an array of
 	 * Producers and returns a HTML
@@ -13,7 +30,7 @@ class Producer {
 	 */
 	public function getProducersHTML($producers) {
 		$html = '
-			<div id="producers">';
+			<div id="producers" class="clearfix">';
 
 		if(empty($producers)) {
 			$html .= utf8_encode('
@@ -24,7 +41,8 @@ class Producer {
 		}
 
 		else {
-
+			//Add each producer which all information that
+			//the object has by looping through the array.
 			foreach($producers as $producer) {
 				$url = (empty($producer->url) || $producer->url == '#') ? 'Hemsida saknas' : '<a href="' . $producer->url . '">' . $producer->url . '</a>';
 
@@ -48,6 +66,23 @@ class Producer {
 		}
 
 		$html .= '
+				</div>';
+
+		//Show the user which links in our source
+		//that is broken.
+		$brokenLinks = $this->producerDAL->getBrokenLinks();
+
+		//Add the HTML.
+		$html .= utf8_encode('
+				<div id="broken-links">
+					<p>Följande länkar kunde inte hämtas:</p>
+					<ol>');
+		foreach($brokenLinks as $link) {
+			$html .= '
+						<li class="broken-link"><a href="' . $link . '">' . $link . '</a>';
+		}
+		$html .= '
+				</ol>
 			</div>';
 
 		return utf8_decode($html);

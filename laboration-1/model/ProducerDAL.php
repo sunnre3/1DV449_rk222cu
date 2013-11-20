@@ -14,6 +14,26 @@ class ProducerDAL extends Database {
 	}
 
 	/**
+	 * Returns all entries in our database
+	 * that are considered broken.
+	 * @return string[]
+	 */
+	public function getBrokenLinks() {
+		$brokenLinks = array();
+
+		//Get the rows from our database.
+		$query = 'SELECT * FROM ' . parent::$DEADLINKS_TABLE;
+		$result = $this->query($query);
+
+		//Add the links to the array.
+		foreach($result as $link) {
+			$brokenLinks[] = $link['url'];
+		}
+
+		return $brokenLinks;
+	}
+
+	/**
 	 * Returns all producers found in our database
 	 * as an array of Producer objects.
 	 * @return \model\Producer[]
@@ -50,11 +70,27 @@ class ProducerDAL extends Database {
 		$query = 'DELETE FROM ' . parent::$PRODUCER_TABLE;
 		$this->query($query);
 
+		$query = 'DELETE FROM ' . parent::$DEADLINKS_TABLE;
+		$this->query($query);
+
 		//Add the new data.
 		foreach($producers as $producer) {
-			$query = "INSERT INTO " . parent::$PRODUCER_TABLE . " (id, name, url, city) 
-			VALUES({$producer->id}, '{$producer->name}', '{$producer->url}', '{$producer->city}')";
-			$this->query($query);
+			//If the producer doesn't have a name
+			//the url was dead and we should save it
+			//to a seperate table.
+			if(empty($producer->name)) {
+				$query = "INSERT INTO " . parent::$DEADLINKS_TABLE . " (url) 
+				VALUES('{$producer->url}')";
+				$this->query($query);
+			}
+
+			//If it is a valid object proceed and save it
+			//to our normal database.
+			else {
+				$query = "INSERT INTO " . parent::$PRODUCER_TABLE . " (id, name, url, city) 
+				VALUES({$producer->id}, '{$producer->name}', '{$producer->url}', '{$producer->city}')";
+				$this->query($query);
+			}
 		}
 	}
 }

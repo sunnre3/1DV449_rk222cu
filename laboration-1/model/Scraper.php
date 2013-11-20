@@ -3,6 +3,7 @@
 namespace model;
 
 require_once('./model/Producer.php');
+require_once('./model/ProducerDAL.php');
 
 class Scraper {
 	/**
@@ -92,9 +93,20 @@ class Scraper {
 		//Get the content of that page.
 		$pageContent = curl_exec($this->ch);
 
-		//Make sure the page exists.
+		//Check if we the page exists.
 		$httpCode = curl_getinfo($this->ch, CURLINFO_HTTP_CODE);
-		if($httpCode != 404) {
+		if($httpCode == 404) {
+			//If the page doesn't exist we
+			//return null and handle it later.
+			return new Producer(null,
+								null,
+								$href,
+								null);
+		}
+		
+		//If the page exists we continue and grab the
+		//attributes we need and create a Producer object.	
+		else {
 			//Parse into DOMDocument.
 			libxml_use_internal_errors(true);
 			$dom = new \DOMDocument();
@@ -114,6 +126,7 @@ class Scraper {
 			//Get the url.
 			$query = $xpath->query('//p/a');
 			$url = ($query->length > 0) ? $query->item(0)->getAttribute('href') : "";
+			$url = ($url == "#") ? "" : $url;
 
 			//Get the city.
 			preg_match('/Ort: (.*)</', $pageContent, $matches);
@@ -167,9 +180,11 @@ class Scraper {
 
 	/**
 	 * On destruct, we make sure the
-	 * cURL handle is closed.
+	 * cURL handle is closed and that
+	 * the error buffer is cleared.
 	 */
 	public function __destruct() {
 		curl_close($this->ch);
+		libxml_clear_errors();
 	}
 }

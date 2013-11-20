@@ -15,6 +15,13 @@ abstract class Database {
 	 * @var string
 	 */
 	protected static $PRODUCER_TABLE = 'Producer';
+	
+	/**
+	 * Static representation of the
+	 * table used for storing dead links.
+	 * @var string
+	 */
+	protected static $DEADLINKS_TABLE = 'DeadLinks';
 
 	/**
 	 * Private representation of a database
@@ -40,13 +47,20 @@ abstract class Database {
 	 * @return void
 	 */
 	private function createDB() {
+		//Producer table
 		$query = 'CREATE TABLE IF NOT EXISTS ' . self::$PRODUCER_TABLE . ' (
 			id INTEGER PRIMARY KEY,
 			name TEXT,
 			url TEXT,
 			city TEXT
 			)';
-
+		$this->query($query);
+		
+		//Dead links table
+		$query = 'CREATE TABLE IF NOT EXISTS ' . self::$DEADLINKS_TABLE . ' (
+			id INTEGER PRIMARY KEY AUTOINCREMENT,
+			url TEXT
+		)';
 		$this->query($query);
 	}
 
@@ -69,7 +83,8 @@ abstract class Database {
 		}
 
 		catch(\PDOException $e) {
-			die('Ett fel uppstod --> ' . $e->getMessage());
+			throw $e;
+			//die('Ett fel uppstod --> ' . $e->getMessage());
 		}
 	}
 
