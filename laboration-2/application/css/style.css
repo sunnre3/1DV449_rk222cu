@@ -1,0 +1,79 @@
+@font-face {
+  font-family: 'Karla';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Karla'), local('Karla-Regular'), url(http://themes.googleusercontent.com/static/fonts/karla/v3/azR40LUJrT4HaWK28zHmVA.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Karla';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Karla Bold'), local('Karla-Bold'), url(http://themes.googleusercontent.com/static/fonts/karla/v3/3nZS3BKzlvhkwl4yjCQcjPesZW2xOQ-xsNqO47m55DA.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Wellfleet';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Wellfleet'), local('Wellfleet-Regular'), url(http://themes.googleusercontent.com/static/fonts/wellfleet/v2/qu15OBOh_Q0T8ooRUaKSDT8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
+}
+
+.message_container {
+	border: 1px solid black;
+	padding: 8px;
+	background-color: #DDD;
+}
+
+.container {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+h4 {
+  margin-top: 25px;
+
+}
+
+.row {
+  margin-bottom: 20px;
+}
+
+.row .row {
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
+.right {
+	text-align: right;
+}
+
+.nobg {
+	background: 0;
+}
+
+[class*="col-"] {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  background-color: #eee;
+  border: 1px solid #ddd;
+  background-color: rgba(86,61,124,.15);
+  border: 1px solid rgba(86,61,124,.2);
+}
+
+hr {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.message_container {
+	border: 1px solid black;
+}
+
+#mess_p_mess {
+	width: 100%; height: 250px; overflow-y: scroll !important; border: solid 3px black; padding: 5px;
+}
+
+#mess_p_headline {
+	font-family: 'Wellfleet', cursive;
+}
