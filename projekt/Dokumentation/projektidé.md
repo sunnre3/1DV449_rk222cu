@@ -1,0 +1,4 @@
+PROJEKTSIDÉ
+===========
+
+Min projektidé är inget revolutionerande det men det är iallafall inte en vädertjänst. Jag tänker mig en webbplats där man för det första kan se en lista på hashtags som är populära just nu och genom att antingen använda någon i listan eller genom att själv ange en term så ska applikationen visa inlägg från åtminstone Instagram och Twitter som är associerade till hashtagen. På det sättet blir det enkelt att hitta intressanta saker vid stora händelser. Jag tänker mig att man till exempel vid vinter-OS som snart är här så kan man väldigt snabbt hitta populära foton från Instagram och tweets från Twitter.
