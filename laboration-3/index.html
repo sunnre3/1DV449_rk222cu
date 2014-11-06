@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Webbteknik II - labb 3</title>
+		<meta charset="utf-8">
+
+		<!-- Project CSS -->
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+
+		<!-- jQuery -->
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.js"></script>
+
+		<!-- Google Maps -->
+		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBw5UwaW-Jv5zOmnCA6vzevrOM_h3d5FQk"></script>
+
+		<!-- Bootstrap CSS & JS -->
+		<link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+		<script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+		<!-- MomentJS -->
+		<script type="text/javascript" src="http://momentjs.com/downloads/moment-with-locales.js"></script>
+	</head>
+
+	<body>
+
+		<!-- The canvas for the map -->
+		<div id="map"></div>
+
+		<!-- Filters -->
+		<div id="filters">
+			<div class="input-group">
+				<span class="input-group-addon">
+					<input type="checkbox" id="0" name="roadtraffic">
+				</span>
+
+				<label for="roadtraffic" class="form-control">Vägtrafik</label>
+			</div>
+
+			<div class="input-group">
+				<span class="input-group-addon">
+					<input type="checkbox" id="1" name="publictransport">
+				</span>
+
+				<label for="publictransport" class="form-control">Kollektivtrafik</label>
+			</div>
+
+			<div class="input-group">
+				<span class="input-group-addon">
+					<input type="checkbox" id="2" name="planneddisturbance">
+				</span>
+
+				<label for="planneddisturbance" class="form-control">Planerad störning</label>
+			</div>
+
+			<div class="input-group">
+				<span class="input-group-addon">
+					<input type="checkbox" id="3" name="misc">
+				</span>
+
+				<label for="misc" class="form-control">Övrigt</label>
+			</div>	
+		</div>
+
+
+		<!-- Project specific JS -->
+		<script type="text/javascript" src="js/map.class.js"></script>
+		<script type="text/javascript" src="js/sr.class.js"></script>
+		<script type="text/javascript" src="js/app.js"></script>
+	</body>
+</html>

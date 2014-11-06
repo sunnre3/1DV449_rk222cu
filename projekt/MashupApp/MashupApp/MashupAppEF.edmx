@@ -1,0 +1,397 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MashupAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Hashtag">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="140" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Instagram">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HashtagId" Type="int" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="ProfileImageUrl" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ThumbnailUrl" Type="varchar" MaxLength="120" Nullable="false" />
+          <Property Name="ImageUrl" Type="varchar" MaxLength="120" Nullable="false" />
+          <Property Name="Caption" Type="varchar" MaxLength="2200" Nullable="false" />
+          <Property Name="Permalink" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+          <Property Name="ExpiresAt" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Trend">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HashtagId" Type="int" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+          <Property Name="ExpiresAt" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tweet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HashtagId" Type="int" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ProfileImageUrl" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Text" Type="varchar" MaxLength="140" Nullable="false" />
+          <Property Name="Permalink" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+          <Property Name="ExpiresAt" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Instagram_Hashtag">
+          <End Role="Hashtag" Type="Self.Hashtag" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Instagram" Type="Self.Instagram" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hashtag">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Instagram">
+              <PropertyRef Name="HashtagId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Trend_Hashtag">
+          <End Role="Hashtag" Type="Self.Hashtag" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Trend" Type="Self.Trend" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hashtag">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Trend">
+              <PropertyRef Name="HashtagId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tweet_Hashtag">
+          <End Role="Hashtag" Type="Self.Hashtag" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tweet" Type="Self.Tweet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hashtag">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tweet">
+              <PropertyRef Name="HashtagId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="uspAddHashtag" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Name" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="uspAddInstagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="HashtagId" Type="int" Mode="In" />
+          <Parameter Name="Username" Type="varchar" Mode="In" />
+          <Parameter Name="ProfileImageUrl" Type="varchar" Mode="In" />
+          <Parameter Name="ThumbnailUrl" Type="varchar" Mode="In" />
+          <Parameter Name="ImageUrl" Type="varchar" Mode="In" />
+          <Parameter Name="Caption" Type="varchar" Mode="In" />
+          <Parameter Name="Permalink" Type="varchar" Mode="In" />
+          <Parameter Name="CreatedAt" Type="datetime" Mode="In" />
+          <Parameter Name="ExpiresAt" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="uspAddTrend" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="HashtagId" Type="int" Mode="In" />
+          <Parameter Name="CreatedAt" Type="datetime" Mode="In" />
+          <Parameter Name="ExpiresAt" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="uspAddTweet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="HashtagId" Type="int" Mode="In" />
+          <Parameter Name="Username" Type="varchar" Mode="In" />
+          <Parameter Name="Name" Type="varchar" Mode="In" />
+          <Parameter Name="ProfileImageUrl" Type="varchar" Mode="In" />
+          <Parameter Name="Text" Type="varchar" Mode="In" />
+          <Parameter Name="Permalink" Type="varchar" Mode="In" />
+          <Parameter Name="CreatedAt" Type="datetime" Mode="In" />
+          <Parameter Name="ExpiresAt" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="uspClearInstagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="uspClearTrends" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="uspClearTweets" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="uspDeleteInstagramsByHashtagId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="HashtagId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="uspDeleteTweetsByHashtagId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="HashtagId" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="MashupAppModelStoreContainer">
+          <EntitySet Name="Hashtag" EntityType="Self.Hashtag" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Instagram" EntityType="Self.Instagram" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Trend" EntityType="Self.Trend" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tweet" EntityType="Self.Tweet" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Instagram_Hashtag" Association="Self.FK_Instagram_Hashtag">
+            <End Role="Hashtag" EntitySet="Hashtag" />
+            <End Role="Instagram" EntitySet="Instagram" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Trend_Hashtag" Association="Self.FK_Trend_Hashtag">
+            <End Role="Hashtag" EntitySet="Hashtag" />
+            <End Role="Trend" EntitySet="Trend" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tweet_Hashtag" Association="Self.FK_Tweet_Hashtag">
+            <End Role="Hashtag" EntitySet="Hashtag" />
+            <End Role="Tweet" EntitySet="Tweet" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MashupAppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Instagram">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HashtagId" Type="Int32" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ProfileImageUrl" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ThumbnailUrl" Type="String" MaxLength="120" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ImageUrl" Type="String" MaxLength="120" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Caption" Type="String" Nullable="false" MaxLength="2200" FixedLength="false" Unicode="false" />
+          <Property Name="Permalink" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ExpiresAt" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Hashtag" Relationship="MashupAppModel.FK_Instagram_Hashtag" FromRole="Instagram" ToRole="Hashtag" />
+        </EntityType>
+        <EntityType Name="Trend">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HashtagId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ExpiresAt" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Hashtag" Relationship="MashupAppModel.FK_Trend_Hashtag" FromRole="Trend" ToRole="Hashtag" />
+        </EntityType>
+        <EntityType Name="Tweet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HashtagId" Type="Int32" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ProfileImageUrl" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Text" Type="String" MaxLength="140" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Permalink" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ExpiresAt" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Hashtag" Relationship="MashupAppModel.FK_Tweet_Hashtag" FromRole="Tweet" ToRole="Hashtag" />
+        </EntityType>
+        <EntityContainer Name="MashupAppEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Instagram" EntityType="Self.Instagram" />
+          <EntitySet Name="Trend" EntityType="Self.Trend" />
+          <EntitySet Name="Tweet" EntityType="Self.Tweet" />
+          <FunctionImport Name="uspAddInstagram" ReturnType="Collection(Decimal)">
+            <Parameter Name="HashtagId" Mode="In" Type="Int32" />
+            <Parameter Name="Username" Mode="In" Type="String" />
+            <Parameter Name="ProfileImageUrl" Mode="In" Type="String" />
+            <Parameter Name="ThumbnailUrl" Mode="In" Type="String" />
+            <Parameter Name="ImageUrl" Mode="In" Type="String" />
+            <Parameter Name="Caption" Mode="In" Type="String" />
+            <Parameter Name="Permalink" Mode="In" Type="String" />
+            <Parameter Name="CreatedAt" Mode="In" Type="DateTime" />
+            <Parameter Name="ExpiresAt" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="uspAddTrend" ReturnType="Collection(Decimal)">
+            <Parameter Name="HashtagId" Mode="In" Type="Int32" />
+            <Parameter Name="CreatedAt" Mode="In" Type="DateTime" />
+            <Parameter Name="ExpiresAt" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="uspAddTweet" ReturnType="Collection(Decimal)">
+            <Parameter Name="HashtagId" Mode="In" Type="Int32" />
+            <Parameter Name="Username" Mode="In" Type="String" />
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="ProfileImageUrl" Mode="In" Type="String" />
+            <Parameter Name="Text" Mode="In" Type="String" />
+            <Parameter Name="Permalink" Mode="In" Type="String" />
+            <Parameter Name="CreatedAt" Mode="In" Type="DateTime" />
+            <Parameter Name="ExpiresAt" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="uspClearInstagrams" />
+          <FunctionImport Name="uspClearTrends" />
+          <FunctionImport Name="uspClearTweets" />
+          <FunctionImport Name="uspDeleteInstagramsByTrendId">
+          <Parameter Name="TrendId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="uspDeleteTweetsByTrendId">
+          <Parameter Name="TrendId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Hashtag" EntityType="MashupAppModel.Hashtag" />
+          <AssociationSet Name="FK_Instagram_Hashtag" Association="MashupAppModel.FK_Instagram_Hashtag">
+            <End Role="Hashtag" EntitySet="Hashtag" />
+            <End Role="Instagram" EntitySet="Instagram" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tweet_Hashtag" Association="MashupAppModel.FK_Tweet_Hashtag">
+            <End Role="Hashtag" EntitySet="Hashtag" />
+            <End Role="Tweet" EntitySet="Tweet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Trend_Hashtag" Association="MashupAppModel.FK_Trend_Hashtag">
+            <End Role="Hashtag" EntitySet="Hashtag" />
+            <End Role="Trend" EntitySet="Trend" />
+          </AssociationSet>
+          <FunctionImport Name="uspAddHashtag" ReturnType="Collection(Decimal)">
+          <Parameter Name="Name" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="uspDeleteInstagramsByHashtagId">
+          <Parameter Name="HashtagId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="uspDeleteTweetsByHashtagId">
+          <Parameter Name="HashtagId" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <EntityType Name="Hashtag">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Instagram" Relationship="MashupAppModel.FK_Instagram_Hashtag" FromRole="Hashtag" ToRole="Instagram" />
+          <NavigationProperty Name="Tweet" Relationship="MashupAppModel.FK_Tweet_Hashtag" FromRole="Hashtag" ToRole="Tweet" />
+          <NavigationProperty Name="Trend" Relationship="MashupAppModel.FK_Trend_Hashtag" FromRole="Hashtag" ToRole="Trend" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="140" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_Instagram_Hashtag">
+          <End Type="MashupAppModel.Hashtag" Role="Hashtag" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="MashupAppModel.Instagram" Role="Instagram" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hashtag">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Instagram">
+              <PropertyRef Name="HashtagId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tweet_Hashtag">
+          <End Type="MashupAppModel.Hashtag" Role="Hashtag" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="MashupAppModel.Tweet" Role="Tweet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hashtag">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tweet">
+              <PropertyRef Name="HashtagId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Trend_Hashtag">
+          <End Type="MashupAppModel.Hashtag" Role="Hashtag" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="MashupAppModel.Trend" Role="Trend" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hashtag">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Trend">
+              <PropertyRef Name="HashtagId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MashupAppModelStoreContainer" CdmEntityContainer="MashupAppEntities">
+          <EntitySetMapping Name="Instagram">
+            <EntityTypeMapping TypeName="MashupAppModel.Instagram">
+              <MappingFragment StoreEntitySet="Instagram">
+                <ScalarProperty Name="Caption" ColumnName="Caption" />
+                <ScalarProperty Name="ProfileImageUrl" ColumnName="ProfileImageUrl" />
+                <ScalarProperty Name="HashtagId" ColumnName="HashtagId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="ThumbnailUrl" ColumnName="ThumbnailUrl" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="Permalink" ColumnName="Permalink" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="ExpiresAt" ColumnName="ExpiresAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Trend">
+            <EntityTypeMapping TypeName="MashupAppModel.Trend">
+              <MappingFragment StoreEntitySet="Trend">
+                <ScalarProperty Name="HashtagId" ColumnName="HashtagId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="ExpiresAt" ColumnName="ExpiresAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tweet">
+            <EntityTypeMapping TypeName="MashupAppModel.Tweet">
+              <MappingFragment StoreEntitySet="Tweet">
+                <ScalarProperty Name="Permalink" ColumnName="Permalink" />
+                <ScalarProperty Name="ProfileImageUrl" ColumnName="ProfileImageUrl" />
+                <ScalarProperty Name="HashtagId" ColumnName="HashtagId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="ExpiresAt" ColumnName="ExpiresAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="uspAddInstagram" FunctionName="MashupAppModel.Store.uspAddInstagram" />
+          <FunctionImportMapping FunctionImportName="uspAddTrend" FunctionName="MashupAppModel.Store.uspAddTrend" />
+          <FunctionImportMapping FunctionImportName="uspAddTweet" FunctionName="MashupAppModel.Store.uspAddTweet" />
+          <FunctionImportMapping FunctionImportName="uspClearInstagrams" FunctionName="MashupAppModel.Store.uspClearInstagrams" />
+          <FunctionImportMapping FunctionImportName="uspClearTrends" FunctionName="MashupAppModel.Store.uspClearTrends" />
+          <FunctionImportMapping FunctionImportName="uspClearTweets" FunctionName="MashupAppModel.Store.uspClearTweets" />
+          <EntitySetMapping Name="Hashtag">
+            <EntityTypeMapping TypeName="MashupAppModel.Hashtag">
+              <MappingFragment StoreEntitySet="Hashtag">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="uspAddHashtag" FunctionName="MashupAppModel.Store.uspAddHashtag" />
+          <FunctionImportMapping FunctionImportName="uspDeleteInstagramsByHashtagId" FunctionName="MashupAppModel.Store.uspDeleteInstagramsByHashtagId" />
+          <FunctionImportMapping FunctionImportName="uspDeleteTweetsByHashtagId" FunctionName="MashupAppModel.Store.uspDeleteTweetsByHashtagId" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

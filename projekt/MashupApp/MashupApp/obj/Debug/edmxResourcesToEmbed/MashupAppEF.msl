@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MashupAppModelStoreContainer" CdmEntityContainer="MashupAppEntities">
+    <EntitySetMapping Name="Instagram">
+      <EntityTypeMapping TypeName="MashupAppModel.Instagram">
+        <MappingFragment StoreEntitySet="Instagram">
+          <ScalarProperty Name="Caption" ColumnName="Caption" />
+          <ScalarProperty Name="ProfileImageUrl" ColumnName="ProfileImageUrl" />
+          <ScalarProperty Name="HashtagId" ColumnName="HashtagId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="ThumbnailUrl" ColumnName="ThumbnailUrl" />
+          <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+          <ScalarProperty Name="Permalink" ColumnName="Permalink" />
+          <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+          <ScalarProperty Name="ExpiresAt" ColumnName="ExpiresAt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Trend">
+      <EntityTypeMapping TypeName="MashupAppModel.Trend">
+        <MappingFragment StoreEntitySet="Trend">
+          <ScalarProperty Name="HashtagId" ColumnName="HashtagId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+          <ScalarProperty Name="ExpiresAt" ColumnName="ExpiresAt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tweet">
+      <EntityTypeMapping TypeName="MashupAppModel.Tweet">
+        <MappingFragment StoreEntitySet="Tweet">
+          <ScalarProperty Name="Permalink" ColumnName="Permalink" />
+          <ScalarProperty Name="ProfileImageUrl" ColumnName="ProfileImageUrl" />
+          <ScalarProperty Name="HashtagId" ColumnName="HashtagId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Text" ColumnName="Text" />
+          <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+          <ScalarProperty Name="ExpiresAt" ColumnName="ExpiresAt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="uspAddInstagram" FunctionName="MashupAppModel.Store.uspAddInstagram" />
+    <FunctionImportMapping FunctionImportName="uspAddTrend" FunctionName="MashupAppModel.Store.uspAddTrend" />
+    <FunctionImportMapping FunctionImportName="uspAddTweet" FunctionName="MashupAppModel.Store.uspAddTweet" />
+    <FunctionImportMapping FunctionImportName="uspClearInstagrams" FunctionName="MashupAppModel.Store.uspClearInstagrams" />
+    <FunctionImportMapping FunctionImportName="uspClearTrends" FunctionName="MashupAppModel.Store.uspClearTrends" />
+    <FunctionImportMapping FunctionImportName="uspClearTweets" FunctionName="MashupAppModel.Store.uspClearTweets" />
+    <EntitySetMapping Name="Hashtag">
+      <EntityTypeMapping TypeName="MashupAppModel.Hashtag">
+        <MappingFragment StoreEntitySet="Hashtag">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="uspAddHashtag" FunctionName="MashupAppModel.Store.uspAddHashtag" />
+    <FunctionImportMapping FunctionImportName="uspDeleteInstagramsByHashtagId" FunctionName="MashupAppModel.Store.uspDeleteInstagramsByHashtagId" />
+    <FunctionImportMapping FunctionImportName="uspDeleteTweetsByHashtagId" FunctionName="MashupAppModel.Store.uspDeleteTweetsByHashtagId" />
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,142 @@
+﻿div.loader
+{
+	display: table;
+	margin: 0 auto;
+}
+
+div.alert > h1
+{
+	margin-top: 0;
+}
+
+div.trending-meta
+{
+	max-width: 500px;
+	padding: 15px;
+	background: #333;
+	color: #fff;
+	border-radius: 16px;
+	box-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
+	margin-bottom: 15px;
+}
+
+div.trending-meta ul.trends-list
+{
+	margin: 0;
+	padding: 0;
+}
+
+div.trending-meta ul.trends-list li
+{
+	display: inline-block;
+	margin-left: 5px;
+	margin-top: 5px;
+}
+
+div.trending-meta ul.trends-list li a
+{
+	padding: 3px 7px;
+	background: #514db9;
+	color: #fff;
+	font-size: 11px;
+	border-radius: 5px;
+}
+
+div.trending-meta ul.trends-list li a:hover
+{
+	text-decoration: none;
+	background: #716dd4;
+}
+
+div.trending-meta h2
+{
+	margin-top: 0;
+}
+
+div.tweet-group > div.tweet
+{
+	display: inline-block;
+	vertical-align: top;
+	max-width: 350px;
+	padding: 10px;
+	margin: 8px;
+	background: #fff;
+	box-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
+	border-radius: 8px;
+}
+
+div.tweet-group > div.tweet .content
+{
+	margin-left: 58px;
+	font-size: 12px;
+}
+
+div.tweet-group div.tweet .content .header:hover
+{
+	text-decoration: inherit;
+}
+
+div.tweet-group > div.tweet .content .header .profile-img
+{
+	float: left;
+	margin-left: -58px;
+	margin-top: 3px;
+}
+
+div.tweet-group > div.tweet .content .header .name
+{
+	color: #000;
+}
+
+div.tweet-group > div.tweet .content .header .username
+{
+	color: #808080;
+	font-size: 11px;
+}
+
+div.tweet-group > div.tweet .content .body
+{
+	word-wrap: break-word;
+}
+
+div.instagram-group > div.instagram
+{
+	display: inline-block;
+	vertical-align: top;
+	max-width: 355px;
+	margin: 10px;
+	background: #fff;
+	box-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
+	border-radius: 8px;
+}
+
+div.instagram-group > div.instagram .image img
+{
+	height: auto;
+	max-width: 355px;
+	border-radius: 8px 8px 0 0;
+}
+
+div.instagram-group > div.instagram .content
+{
+	box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3) inset;
+	border-radius: 0 0 8px 8px;
+}
+
+div.instagram-group > div.instagram .content .meta
+{
+	margin-left: 40px;
+	padding: 10px;
+	font-size: 12px;
+	word-wrap: break-word;
+}
+
+div.instagram-group > div.instagram .content .meta .profile-img
+{
+	height: auto;
+	width: 34px;
+	margin-left: -40px;
+	margin-top: 3px;
+	float: left;
+	border: 1px solid #999;
+}

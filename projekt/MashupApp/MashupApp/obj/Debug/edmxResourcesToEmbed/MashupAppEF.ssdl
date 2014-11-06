@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MashupAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Hashtag">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="140" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Instagram">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="HashtagId" Type="int" Nullable="false" />
+    <Property Name="Username" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="ProfileImageUrl" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="ThumbnailUrl" Type="varchar" MaxLength="120" Nullable="false" />
+    <Property Name="ImageUrl" Type="varchar" MaxLength="120" Nullable="false" />
+    <Property Name="Caption" Type="varchar" MaxLength="2200" Nullable="false" />
+    <Property Name="Permalink" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+    <Property Name="ExpiresAt" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Trend">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="HashtagId" Type="int" Nullable="false" />
+    <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+    <Property Name="ExpiresAt" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tweet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="HashtagId" Type="int" Nullable="false" />
+    <Property Name="Username" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="ProfileImageUrl" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Text" Type="varchar" MaxLength="140" Nullable="false" />
+    <Property Name="Permalink" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+    <Property Name="ExpiresAt" Type="datetime" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Instagram_Hashtag">
+    <End Role="Hashtag" Type="Self.Hashtag" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Instagram" Type="Self.Instagram" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hashtag">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Instagram">
+        <PropertyRef Name="HashtagId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Trend_Hashtag">
+    <End Role="Hashtag" Type="Self.Hashtag" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Trend" Type="Self.Trend" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hashtag">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Trend">
+        <PropertyRef Name="HashtagId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tweet_Hashtag">
+    <End Role="Hashtag" Type="Self.Hashtag" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Tweet" Type="Self.Tweet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hashtag">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tweet">
+        <PropertyRef Name="HashtagId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="uspAddHashtag" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Name" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="uspAddInstagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="HashtagId" Type="int" Mode="In" />
+    <Parameter Name="Username" Type="varchar" Mode="In" />
+    <Parameter Name="ProfileImageUrl" Type="varchar" Mode="In" />
+    <Parameter Name="ThumbnailUrl" Type="varchar" Mode="In" />
+    <Parameter Name="ImageUrl" Type="varchar" Mode="In" />
+    <Parameter Name="Caption" Type="varchar" Mode="In" />
+    <Parameter Name="Permalink" Type="varchar" Mode="In" />
+    <Parameter Name="CreatedAt" Type="datetime" Mode="In" />
+    <Parameter Name="ExpiresAt" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="uspAddTrend" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="HashtagId" Type="int" Mode="In" />
+    <Parameter Name="CreatedAt" Type="datetime" Mode="In" />
+    <Parameter Name="ExpiresAt" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="uspAddTweet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="HashtagId" Type="int" Mode="In" />
+    <Parameter Name="Username" Type="varchar" Mode="In" />
+    <Parameter Name="Name" Type="varchar" Mode="In" />
+    <Parameter Name="ProfileImageUrl" Type="varchar" Mode="In" />
+    <Parameter Name="Text" Type="varchar" Mode="In" />
+    <Parameter Name="Permalink" Type="varchar" Mode="In" />
+    <Parameter Name="CreatedAt" Type="datetime" Mode="In" />
+    <Parameter Name="ExpiresAt" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="uspClearInstagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="uspClearTrends" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="uspClearTweets" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="uspDeleteInstagramsByHashtagId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="HashtagId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="uspDeleteTweetsByHashtagId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="HashtagId" Type="int" Mode="In" />
+  </Function>
+  <EntityContainer Name="MashupAppModelStoreContainer">
+    <EntitySet Name="Hashtag" EntityType="Self.Hashtag" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Instagram" EntityType="Self.Instagram" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Trend" EntityType="Self.Trend" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tweet" EntityType="Self.Tweet" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Instagram_Hashtag" Association="Self.FK_Instagram_Hashtag">
+      <End Role="Hashtag" EntitySet="Hashtag" />
+      <End Role="Instagram" EntitySet="Instagram" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Trend_Hashtag" Association="Self.FK_Trend_Hashtag">
+      <End Role="Hashtag" EntitySet="Hashtag" />
+      <End Role="Trend" EntitySet="Trend" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tweet_Hashtag" Association="Self.FK_Tweet_Hashtag">
+      <End Role="Hashtag" EntitySet="Hashtag" />
+      <End Role="Tweet" EntitySet="Tweet" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

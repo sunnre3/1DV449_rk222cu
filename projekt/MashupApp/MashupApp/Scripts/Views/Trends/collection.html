@@ -1,0 +1,74 @@
+﻿<div class="loader" ng-if="loading">
+	<img src="content/images/ajax_loader.gif" />
+</div>
+
+<div class="trending-meta" ng-if="!loading && !error">
+	<h2>#{{ pageTitle }}</h2>
+
+	<div class="trends" ng-if="trends.length > 0">
+		<p>Trending i Sverige just nu...</p>
+
+		<ul class="trends-list">
+			<li data-ng-repeat="trend in trends">
+				<a href="#/hashtag/{{ trend.name }}">#{{ trend.name }}</a>
+			</li>
+		</ul>
+
+		<div class="clearfix"></div>
+	</div>
+</div>
+
+<div class="alert alert-warning" ng-if="!loading && tweets.length == 0 && instagrams.length == 0">
+	<h1>Hmm...</h1>
+
+	<p>Det verkar som om ingen data hittades. Detta beror förmodligen på att #-tagen du sökte är helt absurd och ingen annan än du använder den. 
+	Om detta inte är fallet så beror det på att Twitter och Instagram har problem på sin sida. Var isåfall god försök igen.</p>
+	<p>Du kan också klicka <a href="#/">här</a> för att komma tillbaka till startsidan.</p>
+</div>
+
+<div class="alert alert-danger" ng-if="error">
+	<h1>Fel!</h1>
+
+	<p>Det verkar som om vi har ett problem bakom kulisserna. Var vänlig försök igen.</p>
+</div>
+
+<div class="tweet-group" ng-if="tweets.length > 0 && !loading">
+
+	<div data-ng-repeat="tweet in tweets" class="tweet">
+		<div class="content">
+			<a class="header" href="https://twitter.com/{{ tweet.username }}/">
+				<img class="profile-img" src="{{ tweet.userProfileImageUrl }}" />
+				<strong class="name">{{ tweet.name }}</strong>
+				<span class="username">@{{ tweet.username }}</span>
+			</a>
+			<p class="body" ng-bind-html="tweet.text | processTweet"></p>
+		</div>
+	</div>
+
+</div> 
+
+<div class="clearfix"></div>
+
+<div class="instagram-group" ng-if="instagrams.length > 0 && !loading">
+
+	<div data-ng-repeat="instagram in instagrams" class="instagram">
+		<div class="image">
+			<img src="{{ instagram.imageUrl }}" />
+		</div>
+
+		<div class="content">
+			<div class="meta">
+				<img class="profile-img" src="{{ instagram.userProfileImageUrl }}" />
+				<p>
+					<a href="http://instagram.com/{{ instagram.username }}">{{ instagram.username }}</a>
+					{{ instagram.caption }}
+				</p>
+				
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<div class="clearfix"></div>
